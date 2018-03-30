@@ -1,0 +1,14 @@
+<view class="container">
+    <scroll-view class="order-list">
+        <view class="order-item" wx:for="{{list}}" wx:key="{{imgSrc}}">
+            <image src="{{item.imgSrc}}" mode="widthFix" class="order-bg"></image>
+            <text class="order-title">{{item.title}}</text>
+            <text class="order-content">{{item.minutes}}分钟</text>
+            <text class="order-start-button">开始</text>
+        </view>
+    </scroll-view>
+    <view class="addTask-btn"><text></text></view>
+    <import src="./templates/task.wxml" />
+    <template is="task-box" wx:if="{{isAddNewTask}}">      
+    </template>
+</view>

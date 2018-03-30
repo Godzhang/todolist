@@ -1,0 +1,51 @@
+/*弹窗样式*/
+.task-box{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 600rpx;
+	background: #fff;
+}
+.task-head{
+	height: 120rpx;
+	line-height: 120rpx;
+	padding: 0 30rpx;
+	background: #a3382e;
+}
+.task-title{
+	float: left;
+	font-size: 40rpx;
+	color: #fff;
+}
+.task-close,
+.task-sure{
+	position: relative;
+	float: right;
+	width: 100rpx;
+	height: 100rpx;
+	margin-top: 10rpx;
+}
+.task-close{
+
+}
+.task-sure text{
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50rpx;
+	height: 25rpx;
+	border: 1px solid #fff;
+	border-color: transparent transparent #fff #fff;
+	transform: rotate(-45deg);
+
+
+}
+
+
+
+.placeholder-class{
+	color: #f8564b;
+}

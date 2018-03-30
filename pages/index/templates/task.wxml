@@ -1,0 +1,33 @@
+<template name="task-box">
+	<view class="task-box">
+		<view class="task-head">
+			<text class="task-title">添加待办</text>
+			<view class="task-close"><text></text></view>
+			<view class="task-sure"><text></text></view>
+		</view>
+		<view class="task-body">
+			<view class="task-name">
+				<input type="text" placeholder="请输入待办名称" placeholder-class="placeholder-class" />
+			</view>
+			<view class="task-type">
+				<text class="selected">普通番茄钟</text>
+				<text>定目标</text>
+				<text>养习惯</text>
+			</view>
+			<view class="task-time-mode">
+				<text class="selected">倒计时</text>
+				<text>正计时</text>
+				<text>不计时</text>
+			</view>
+			<view class="task-minutes">
+				<text class="selected">25分钟</text>
+				<text>35分钟</text>
+				<text>自定义</text>
+			</view>
+			<view class="task-note">
+				*倒计时25分钟即标准番茄时间
+			</view>
+			<view class="more-options">展开更多高级设置</view>
+		</view>
+	</view>
+</template>

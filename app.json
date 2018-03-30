@@ -1,0 +1,27 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/backlog/backlog"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#f8564b",
+    "navigationBarTitleText": "todolist",
+    "navigationBarTextStyle":"#fff"
+  },
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#006851",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "待办",
+      "iconPath": "images/item.png",
+      "selectedIconPath": "images/item-active.png"
+    },{
+      "pagePath": "pages/backlog/backlog",
+      "text": "待办集",
+      "iconPath": "images/list.png",
+      "selectedIconPath": "images/list-active.png"
+    }]
+  }
+}
