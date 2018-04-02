@@ -1,0 +1,14 @@
+<template name="custom-time">
+	<view class="task-box task-custom-box">
+		<view class="task-head task-custom-head">
+			<text class="task-title">自定义Todo时间</text>
+		</view>
+		<view class="task-body task-custom-body">
+			<view class="task-name">
+				<label class="placehold {{customClass}}" for="task-input">不能多于150分钟</label>
+				<input type="text" id="task-input" data-class="float" bindinput="changeCustomClass" focus="true" value="{{customTime}}" />
+			</view>
+			<view class="task-btn-sure" bindtap="addCustomTime">确定</view>
+		</view>
+	</view>
+</template>

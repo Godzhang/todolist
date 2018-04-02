@@ -7,8 +7,8 @@
             <text class="order-start-button">开始</text>
         </view>
     </scroll-view>
-    <view class="addTask-btn"><text></text></view>
+    <view class="addTask-btn" bindtap="showTaskBox"><text></text></view>
     <import src="./templates/task.wxml" />
-    <template is="task-box" wx:if="{{isAddNewTask}}">      
+    <template is="task-box" wx:if="{{isAddNewTask}}" data="{{labelClass, taskTypeIndex, taskTypeList, bellIndex, bellList, minutesIndex, minutesList, customClass, isShowCustomBox}}">
     </template>
 </view>

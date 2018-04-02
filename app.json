@@ -6,7 +6,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#f8564b",
-    "navigationBarTitleText": "todolist",
+    "navigationBarTitleText": "番茄todolist",
     "navigationBarTextStyle":"#fff"
   },
   "tabBar": {
