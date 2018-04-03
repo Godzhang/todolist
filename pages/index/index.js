@@ -2,83 +2,32 @@
 //获取应用实例
 const app = getApp()
 
-import { showWarn } from '../../utils/util';
+import { showWarn, judgeCustomTime } from '../../utils/util';
+import { EXAMPLE, IMG_LIST } from '../../utils/constants';
 
 Page({
     data: {
         list: [],
-        example: [{
-            imgSrc: '../../images/bg/1.jpg',
-            type: 'bell',
-            title: '示例——看书(长按删除)',
-            time_mode: 'countdown',
-            minutes: 25
-        },{
-            imgSrc: '../../images/bg/2.jpg',
-            type: 'bell',
-            title: '示例——锻炼(长按删除)',
-            time_mode: 'countdown',
-            minutes: 25
-        },{
-            imgSrc: '../../images/bg/3.jpg',
-            type: 'bell',
-            title: '示例——工作(长按删除)',
-            time_mode: 'countdown',
-            minutes: 25
-        },{
-            imgSrc: '../../images/bg/4.jpg',
-            type: 'bell',
-            title: '示例——玩游戏(长按删除)',
-            time_mode: 'countdown',
-            minutes: 25
-        }],
-        isAddNewTask: true,
-        isShowCustomBox: false,
-        labelClass: '',
-        customClass: '',
-        customTime: '',
-        taskName: '',
-
-        taskTypeIndex: 0,
-        taskTypeList: ['普通番茄钟', '定目标', '养习惯'],
-        
-        bellIndex: 0,
-        bellList: ['倒计时', '正计时', '不计时'],
-
-        minutesIndex: 0,
-        minutesList: ['25分钟', '35分钟', '自定义']
+        isAddNewTask: false
     },
     onLoad: function () {
         this.setData({
-            list: this.data.list.concat(this.data.example)
+            list: this.data.list.concat(EXAMPLE)
         });
+        this.task = this.selectComponent("#task-box");
+    },
+    _closeTaskBox(){
+        this.setData({
+            isAddNewTask: false
+        });
+        this.task.reset();
+    },
+    _getNewList(e){
+        let newItem = e.detail,
+            newList = this.data.list.concat(newItem);
         
-    },
-    //根据输入框字数改变文字提示的样式
-    changeLabelClass(e){
-        let content = e.detail.value,
-            labelClass = null;
-        if(content.length === 0){
-            labelClass = '';
-        }else if(content.length > 0){
-            labelClass = e.target.dataset.class;
-        }
         this.setData({
-            labelClass: labelClass,
-            taskName: content
-        });
-    },
-    changeCustomClass(e){
-        let content = e.detail.value,
-            customClass = null;
-        if(content.length === 0){
-            customClass = '';
-        }else if(content.length > 0){
-            customClass = e.target.dataset.class;
-        }
-        this.setData({
-            customClass: customClass,
-            customTime: content
+            list: newList
         });
     },
     //打开任务添加栏
@@ -87,62 +36,61 @@ Page({
             isAddNewTask: true
         });
     },
-    //关闭任务添加栏
-    closeTaskBox(){
-        this.setData({
-            isAddNewTask: false,
-            taskTypeIndex: 0,
-            bellIndex: 0,
-            minutesIndex: 0
-        });
-    },
     //添加新任务
-    addNewTaskBox(){
-        let data = this.data,
-            taskName = data.taskName,
-            list = data.list;
+    // addNewTaskBox(){
+    //     let data = this.data,
+    //         taskName = data.taskName;      
+        
+    //     //如果未输入待办名称，提示错误
+    //     if(taskName.length === 0){
+    //         showWarn('请输入待办名称');
+    //         return;
+    //     }
+        
+    //     let newList = this.getNewList();
+        
+    //     this.setData({
+    //         list: newList
+    //     });
+    //     this.closeTaskBox();
+    // },
+    //更新列表
+    // getNewList(){
+    //     let imgIndex = app.globalData.imgIndex,
+    //         data = this.data,
+    //         taskName = data.taskName,
+    //         minutes = null;
 
-        if(taskName.length === 0){
-            showWarn('请输入待办名称');
-            return;
-        }
-        list.push({
-            imgSrc: ''
-            taskName: taskName,
-            taskType: data.taskTypeIndex,
-            taskMode: data.bellIndex,
-            taskTime: data.minutesIndex
-        });
-        this.closeTaskBox();
-    },
-    //点击切换tab
-    changeTab(e){
-        let index = e.target.dataset.index;
-        this.setData({
-            taskTypeIndex: index
-        });
-    },
-    changeBell(e){
-        let index = e.target.dataset.index;
-        this.setData({
-            bellIndex: index
-        });
-    },
-    changeMinutes(e){
-        let list = this.data.minutesList,
-            index = e.target.dataset.index;
-        if(index === 2){
-            this.setData({
-                isShowCustomBox: true
-            })
-        }
-        this.setData({
-            minutesIndex: index
-        });
-    },
+    //     //判断计时方式
+    //     if(data.bellIndex === 0){
+    //         minutes = data.minutesList[data.minutesIndex];
+    //     }else if(data.bellIndex === 1){
+    //         minutes = '正计时';
+    //     }else{
+    //         minutes = '普通代办';
+    //     }
+
+    //     let newList = this.data.list.concat([{
+    //         imgSrc: IMG_LIST[imgIndex],
+    //         title: taskName,
+    //         type: data.taskTypeList[data.taskTypeIndex],
+    //         time_mode: data.bellList[data.bellIndex],
+    //         minutes: minutes
+    //     }]);
+
+    //     if(imgIndex === IMG_LIST.length - 1){
+    //         app.globalData.imgIndex = 0;
+    //     }else{
+    //         app.globalData.imgIndex++;
+    //     }
+
+    //     return newList;
+    // },
+    //设置自定义时间
     addCustomTime(){
         let time = parseInt(this.data.customTime);
-        if(time && time <= 150 && time > 0){
+
+        judgeCustomTime(time, () => {
             let ct = time + '分钟';
 
             this.setData({
@@ -150,12 +98,30 @@ Page({
                 minutesList: ['25分钟', '35分钟', ct],
                 customClass: ''
             });
-        }else if(time > 150){
-            showWarn('不能超过150分钟');
-        }else if(time < 0){
-            showWarn('分钟不能为负数');
-        }else{
-            showWarn('请输入正确格式');
-        }
+        });        
+    },
+    //长按事件
+    longpress(e){
+        let self = this;
+
+        wx.showActionSheet({
+            itemList: ['删除'],
+            success(res){
+                let index = res.tapIndex,
+                    list = self.data.list.concat(),
+                    itemIndex = e.target.dataset.index;
+
+                if(index === 0){
+                    list.splice(itemIndex, 1);
+                }
+
+                self.setData({
+                    list: list
+                });
+            }
+        });
+    },
+    startTask(){
+
     }
 })

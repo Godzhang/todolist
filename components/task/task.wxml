@@ -1,18 +1,19 @@
-<template name="task-box">
+<view class="task-area" wx:if="{{isShow}}">
+	<view class="task-area-bg"></view>
 	<view class="task-box">
 		<view class="task-head">
 			<text class="task-title">添加待办</text>			
-			<view class="task-close" bindtap="closeTaskBox">
+			<view class="task-close" bindtap="_closeTaskBox">
 				<image src="../../images/cancel.png" mode="aspectFit"></image>
 			</view>
-			<view class="task-sure" bindtap="addNewTaskBox">
+			<view class="task-sure" bindtap="_addNewTaskBox">
 				<image src="../../images/ok.png" mode="aspectFit"></image>
 			</view>
 		</view>
 		<view class="task-body">
 			<view class="task-name">
 				<label class="placehold {{labelClass}}" for="task-input">请输入待办名称</label>
-				<input type="text" id="task-input" data-class="float" bindinput="changeLabelClass" focus="true" />
+				<input type="text" id="task-input" data-class="float" bindinput="_changeLabelClass" focus="true" />
 				<image src="../../images/question.png"></image>
 			</view>
 			<view class="task-type task-item">
@@ -20,7 +21,7 @@
 				wx:key="{{index}}"
 				data-index="{{index}}"
 				class="{{ taskTypeIndex === index ? 'selected' : '' }}"
-				bindtap="changeTab"
+				bindtap="_changeTab"
 				>{{item}}</text>
 			</view>
 			<view class="common-bell task-tab" wx:if="{{taskTypeIndex == 0}}">
@@ -29,32 +30,29 @@
 					wx:key="{{index}}"
 					data-index="{{index}}"
 					class="{{ bellIndex === index ? 'selected' : '' }}"
-					bindtap="changeBell"
+					bindtap="_changeBell"
 					>{{item}}</text>
-					<!-- <text class="selected">倒计时</text>
-					<text>正计时</text>
-					<text>不计时</text> -->
 				</view>
 				<view class="task-minutes task-item" wx:if="{{bellIndex == 0}}">
 					<text wx:for="{{minutesList}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
 					class="{{ minutesIndex === index ? 'selected' : '' }}"
-					bindtap="changeMinutes"
+					bindtap="_changeMinutes"
 					>{{item}}</text>
 				</view>
 				<view class="task-note" wx:if="{{bellIndex == 0}}">
 					*倒计时25分钟即标准番茄时间
 				</view>
-				<view class="task-note" wx:if="{{bellIndex == 1}}">
+				<view class="task-note" wx:elif="{{bellIndex == 1}}">
 					*适合碎片时间记录，随用随计
 				</view>
-				<view class="task-note" wx:if="{{bellIndex == 2}}">
+				<view class="task-note" wx:else>
 					*适合不需要计时的代办，比如：取快递，喝水等
 				</view>
-				<view class="more-options">
+				<!-- <view class="more-options">
 					<text>展开更多高级设置</text>
-				</view>
+				</view> -->
 			</view>
 			<view class="fix-target task-tab" wx:if="{{taskTypeIndex == 1}}">
 				
@@ -64,6 +62,10 @@
 			</view>
 		</view>
 	</view>
-	<import src="./customTime.wxml" />
-	<template is="custom-time" data="{{customClass}}" wx:if="{{isShowCustomBox}}"></template>
-</template>
+	<customtime
+	showCustomTime="{{isShowCustomBox}}"
+	bind:setCustomTime="_setCustomTime"
+	></customtime>
+	<!-- <import src="./customTime.wxml" />
+	<template is="custom-time" data="{{customClass}}" wx:if="{{isShowCustomBox}}"></template> -->
+</view>

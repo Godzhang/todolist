@@ -1,0 +1,6 @@
+{
+	"component": true,
+	"usingComponents": {
+		"customtime": "/components/customtime/customtime"
+	}
+}

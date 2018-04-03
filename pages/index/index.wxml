@@ -1,14 +1,17 @@
 <view class="container">
-    <scroll-view class="order-list">
-        <view class="order-item" wx:for="{{list}}" wx:key="{{imgSrc}}">
+    <scroll-view class="order-list" scroll-y="true">
+        <view class="order-item" wx:for="{{list}}" wx:key="{{index}}" bindlongpress="longpress" bindtap="startTask" data-index="{{index}}" data-mode="{{item.time_mode}}">
             <image src="{{item.imgSrc}}" mode="widthFix" class="order-bg"></image>
             <text class="order-title">{{item.title}}</text>
-            <text class="order-content">{{item.minutes}}分钟</text>
+            <text class="order-content">{{item.minutes}}</text>
             <text class="order-start-button">开始</text>
         </view>
     </scroll-view>
     <view class="addTask-btn" bindtap="showTaskBox"><text></text></view>
-    <import src="./templates/task.wxml" />
-    <template is="task-box" wx:if="{{isAddNewTask}}" data="{{labelClass, taskTypeIndex, taskTypeList, bellIndex, bellList, minutesIndex, minutesList, customClass, isShowCustomBox}}">
-    </template>
+    <task 
+    id="task-box"
+    isShow="{{isAddNewTask}}"
+    bind:closeTaskBox="_closeTaskBox" 
+    bind:getNewList="_getNewList"
+    ></task>
 </view>

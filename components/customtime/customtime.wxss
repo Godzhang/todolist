@@ -1,0 +1,42 @@
+@import '../task/task.wxss';
+
+.task-custom-box{
+	width: 500rpx;
+}
+.task-custom-head{
+	background: #f8564b;
+}
+.task-custom-body{
+	padding-bottom: 150rpx;
+}
+.task-custom-body .task-name{
+	width: 80%;
+	margin: 0 auto;
+	min-height: 50rpx;
+	line-height: 50rpx;
+	font-size: 30rpx;
+}
+.task-custom-body .task-name input{
+	height: 50rpx;
+}
+.task-custom-body .placehold{
+	height: 50rpx;
+}
+.task-custom-body .placehold.float{
+	top: -30rpx;
+}
+.task-btn-sure{
+	position: absolute;
+	left: 50%;
+	bottom: 20rpx;
+	transform: translateX(-50%);
+	width: 460rpx;
+	height: 80rpx;
+	margin: 40rpx auto 0;
+	line-height: 80rpx;
+	font-size: 30rpx;
+	color: #f8564b;
+	background: #fff;
+	text-align: center;
+	box-shadow: 0rpx 0rpx 10rpx rgba(0, 0, 0, .2);
+}

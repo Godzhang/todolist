@@ -4,6 +4,6 @@ App({
     
   },
   globalData: {
-    
+    imgIndex: 4
   }
 })
