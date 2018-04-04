@@ -8,8 +8,8 @@ export function showWarn(title, duration){
 }
 //判断自定义时间
 export function judgeCustomTime(time, callback){
-	if(time && time <= 150 && time > 0){
-        callback && callback();
+	if(time === '' || (time <= 150 && time > 0)){
+        callback && callback(time);
     }else if(time > 150){
         showWarn('不能超过150分钟');
     }else if(time < 0){
@@ -18,6 +18,8 @@ export function judgeCustomTime(time, callback){
         showWarn('请输入正确格式');
     }
 }
-
-
+//获取随机数
+export function getRandom(min, max){
+    return parseInt(Math.random() * (max - min) + min);
+}
 

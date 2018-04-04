@@ -9,7 +9,8 @@ Component({
 	},
 	data: {
 		customClass: '',
-        customTime: ''
+        customTime: '',
+        lastTime: ''
 	},
 	methods: {
 		_changeCustomClass(e){
@@ -27,17 +28,16 @@ Component({
 	    },
 	    //设置自定义时间
 	    _addCustomTime(){
-	        let time = parseInt(this.data.customTime);
+	        let time = this.data.customTime;
 
-	        judgeCustomTime(time, () => {
+	        judgeCustomTime(time, (res) => {
 	            this.setData({
-	                // isShowCustomBox: false,
-	                // minutesList: ['25分钟', '35分钟', ct],
+	            	lastTime: this.data.customTime,
 	                customClass: '',
 	                customTime: ''
 	            });
 
-	            this.triggerEvent('setCustomTime', time);
+	            this.triggerEvent('setCustomTime', res);
 	        });
 	    }
 	}

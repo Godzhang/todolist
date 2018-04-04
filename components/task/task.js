@@ -5,9 +5,9 @@ const app = getApp()
 
 Component({
 	properties: {
-		isShow: {
-			type: Boolean,
-			value: false
+		existData: {
+			type: Object,
+			value: null
 		}
 	},
 	data: {
@@ -26,8 +26,34 @@ Component({
 
         isShowCustomBox: false
 	},
+	ready(){
+		let fillBackData = this.properties.existData,
+			data = this.data;
+
+		if(fillBackData == null) return;
+
+		let taskTypeIndex = data.taskTypeList.findIndex(item => item === fillBackData.type),
+			bellIndex = data.bellList.findIndex(item => item === fillBackData.time_mode),
+			minutesIndex = data.minutesList.findIndex(item => item === fillBackData.minutes),
+			taskName = fillBackData.title;
+
+		if(minutesIndex === -1){
+			this.setData({
+				'minutesList[2]': fillBackData.minutes
+			});
+			minutesIndex = 2;
+		}
+
+		this.setData({
+			taskName,
+			taskTypeIndex,
+			bellIndex,
+			minutesIndex
+		});
+
+	},
 	methods: {
-		reset(){
+		_reset(){
 			this.setData({
 				taskTypeIndex: 0,
 	            bellIndex: 0,
@@ -39,6 +65,7 @@ Component({
 		},
 		_closeTaskBox(){
 			this.triggerEvent('closeTaskBox');
+			this._reset();
 		},
 		_addNewTaskBox(){
 	        //如果未输入待办名称，提示错误
@@ -70,38 +97,54 @@ Component({
 	    //点击切换tab
 	    _changeTab(e){
 	        let index = e.target.dataset.index;
-	        this.setData({
-	            taskTypeIndex: index
-	        });
+	        
+	        if(this.data.taskTypeIndex !== index){
+				this.setData({
+		            taskTypeIndex: index
+		        });
+	        }		        
 	    },
 	    //改变计时方式
 	    _changeBell(e){
 	        let index = e.target.dataset.index;
-	        this.setData({
-	            bellIndex: index
-	        });
+
+	        if(this.data.bellIndex !== index){
+	        	this.setData({
+		            bellIndex: index
+		        });
+	        }		        
 	    },
 	    //添加自定义时间
-	    //?#?改变后样式无效
+	    //改变后样式无效
 	    _setCustomTime(e){
-	    	let time = e.detail;
+	    	let time = e.detail,
+	    		customTime = null;
+
+	    	if(time !== ''){
+	    		this.setData({
+	    			'minutesList[2]': time + '分钟'
+	    		});
+	    	}
+
 	    	this.setData({
-	            isShowCustomBox: false,
-	            minutesList: ['25分钟', '35分钟', time + '分钟'],
+	            isShowCustomBox: false
 	        });
 	    },
 	    //改变倒计时分钟数
 	    _changeMinutes(e){
 	        let list = this.data.minutesList,
 	            index = e.target.dataset.index;
-	        if(index === 2){
-	            this.setData({
-	                isShowCustomBox: true
-	            });
-	        }
-	        this.setData({
-	            minutesIndex: index
-	        });
+
+	        if(this.data.minutesIndex !== index){
+	        	if(index === 2){
+		            this.setData({
+		                isShowCustomBox: true
+		            });
+		        }
+		        this.setData({
+		            minutesIndex: index
+		        });
+	        }		        
 	    },
 	    _getNewItem(){
 	        let imgIndex = app.globalData.imgIndex,
@@ -111,7 +154,12 @@ Component({
 
 	        //判断计时方式
 	        if(data.bellIndex === 0){
-	            minutes = data.minutesList[data.minutesIndex];
+	        	//如果第三个没有输入，仍是‘自定义’三个字，默认为25分钟
+	        	if(data.minutesList[data.minutesIndex] === '自定义'){
+	        		minutes = data.minutesList[0];
+	        	}else{
+	        		minutes = data.minutesList[data.minutesIndex];
+	        	}	            
 	        }else if(data.bellIndex === 1){
 	            minutes = '正计时';
 	        }else{

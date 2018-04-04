@@ -1,0 +1,21 @@
+<view class="container">
+	<view class="container-bg">
+		<image></image>
+		<view class="init-cover"></view>
+	</view>
+	<view class="timing-area">
+		<view class="timing-saying"><text>{{saying}}</text></view>
+		<view class="timing-countdown">
+			<canvas canvas-id="countdown"></canvas>
+		</view>
+		<view class="timing-info">
+			<view class="timing-title"></view>
+			<view class="timing-state">正在进行中</view>
+		</view>
+		<view class="timing-button">
+			<view class="pause"><image></image></view>
+			<view class="restart"><image></image></view>
+			<view class="end"><image></image></view>
+		</view>
+	</view>
+</view>

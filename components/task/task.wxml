@@ -1,4 +1,4 @@
-<view class="task-area" wx:if="{{isShow}}">
+<view class="task-area">
 	<view class="task-area-bg"></view>
 	<view class="task-box">
 		<view class="task-head">

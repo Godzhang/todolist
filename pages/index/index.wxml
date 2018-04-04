@@ -1,6 +1,6 @@
 <view class="container">
     <scroll-view class="order-list" scroll-y="true">
-        <view class="order-item" wx:for="{{list}}" wx:key="{{index}}" bindlongpress="longpress" bindtap="startTask" data-index="{{index}}" data-mode="{{item.time_mode}}">
+        <view class="order-item" wx:for="{{list}}" wx:key="{{index}}" bindlongpress="longpress" bindtap="startTask" data-index="{{index}}" data-item="{{item}}">
             <image src="{{item.imgSrc}}" mode="widthFix" class="order-bg"></image>
             <text class="order-title">{{item.title}}</text>
             <text class="order-content">{{item.minutes}}</text>
@@ -10,7 +10,8 @@
     <view class="addTask-btn" bindtap="showTaskBox"><text></text></view>
     <task 
     id="task-box"
-    isShow="{{isAddNewTask}}"
+    wx:if="{{isAddNewTask}}"
+    existData="{{backFillData}}"
     bind:closeTaskBox="_closeTaskBox" 
     bind:getNewList="_getNewList"
     ></task>

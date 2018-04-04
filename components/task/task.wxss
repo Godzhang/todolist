@@ -118,6 +118,7 @@
 	font-size: 28rpx;
 	color: #5c5c5c;
 	background: #f5f5f5;
+	overflow: hidden;
 }
 .task-item text.selected{
 	color: #579dd9;

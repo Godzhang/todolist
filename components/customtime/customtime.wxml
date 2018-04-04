@@ -6,7 +6,7 @@
 		</view>
 		<view class="task-body task-custom-body">
 			<view class="task-name">
-				<label class="placehold {{customClass}}" for="task-input">不能多于150分钟</label>
+				<label class="placehold {{customClass}}" for="task-input">{{lastTime ? lastTime + '分钟' : '不能多于150分钟'}}</label>
 				<input type="number" id="task-input" data-class="float" bindinput="_changeCustomClass" focus="true" value="{{customTime}}" />
 			</view>
 			<view class="task-btn-sure" bindtap="_addCustomTime">确定</view>
